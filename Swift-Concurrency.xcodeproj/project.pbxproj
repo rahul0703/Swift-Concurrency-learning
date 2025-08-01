@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		DF5385A82E3CB26600EB5177 /* ios_system_design_topics.md in Resources */ = {isa = PBXBuildFile; fileRef = DF5385A72E3CB26600EB5177 /* ios_system_design_topics.md */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		DF5384EB2E3C74C700EB5177 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +31,7 @@
 		DF5384DD2E3C74C600EB5177 /* Swift-Concurrency.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Swift-Concurrency.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF5384EA2E3C74C700EB5177 /* Swift-ConcurrencyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Swift-ConcurrencyTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF5384F42E3C74C700EB5177 /* Swift-ConcurrencyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Swift-ConcurrencyUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF5385A72E3CB26600EB5177 /* ios_system_design_topics.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = ios_system_design_topics.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -75,6 +80,7 @@
 		DF5384D42E3C74C600EB5177 = {
 			isa = PBXGroup;
 			children = (
+				DF5385A72E3CB26600EB5177 /* ios_system_design_topics.md */,
 				DF5384DF2E3C74C600EB5177 /* Swift-Concurrency */,
 				DF5384ED2E3C74C700EB5177 /* Swift-ConcurrencyTests */,
 				DF5384F72E3C74C700EB5177 /* Swift-ConcurrencyUITests */,
@@ -212,6 +218,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF5385A82E3CB26600EB5177 /* ios_system_design_topics.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
