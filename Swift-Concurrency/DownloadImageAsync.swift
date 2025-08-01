@@ -16,25 +16,40 @@ import SwiftUI
 class DownloadImageAsyncImageLoader {
   
   let url = URL(string: "https://picsum.photos/200")!
+  
+  func handleResponse(data: Data?, response: URLResponse?) -> UIImage? {
+    // This function would typically handle the response from a network request.
+    // It checks if the data is valid and if the response status code is in the 200 range.
+    guard
+      let data = data,
+      let image = UIImage(data: data),
+      let response = response as? HTTPURLResponse,
+      response.statusCode >= 200 && response.statusCode < 300
+    else {
+      return nil
+    }
+    return image
+  }
+  
   func downloadwithEscaping(completionHandler: @escaping (_ image: UIImage?, _ error: Error?) -> Void) {
     // This function would typically download an image asynchronously using a closure.
     
     // URLSession.shared.dataTask is an asynchronous method that fetches data from the specified URL.
     // Its returns data, response, and error in the completion handler.
     // This is a escaping closure because it is called after the function returns.
-    URLSession.shared.dataTask(with: url) { data, response, error in
-      guard
-        let data = data,
-        let image = UIImage(data: data),
-        let response = response as? HTTPURLResponse,
-        response.statusCode >= 200 && response.statusCode < 300 else {
-        return
-      }
-      completionHandler(image, nil)
-      
+    URLSession.shared.dataTask(with: url) { [weak self] data, response, error in
+      let image = self?.handleResponse(data: data, response: response)
+      completionHandler(image, error)
     }
     .resume()
     //creates a task, but doesn’t start it. To actually execute the network call, you must call .resume():
+  }
+  
+  
+  //Download Image with Combine
+  //Combine: A framework that provides a declarative Swift API for processing values over time.
+  func downloadWithCombine() {
+    URLSession.shared.dataTaskPublisher(for: url)
   }
 }
 
