@@ -9,7 +9,7 @@ import SwiftUI
 
 //What are we learning here
 //Do-catch statement
-//try
+//try and try?
 //throw
 
 
@@ -42,9 +42,24 @@ class DocatchTryThrowBootcampDataManager {
   
   //Here is the improved version of the above code
   func getTitle2() -> Result<String, Error> {
-    
+    if isActive {
+      return .success("New Title")
+    } else {
+      return .failure(URLError(.badURL))
+    }
   }
   
+  //Here in the above code we are using Result type to handle success and failure cases.
+  //This can be improved further if we just provide either of the 2 as we don't have to return both value and error.
+  //This is done by using try and throws keyword in the function signature.
+  func getTitle3() throws -> String {
+    if isActive {
+      return "New Title"
+    } else {
+      // In your prod application use a custom error but here we are using URLError for learning purpose.
+      throw URLError(.badURL)
+    }
+  }
   
 }
 
@@ -67,10 +82,32 @@ class DocatchTryThrowBootcampViewModel: ObservableObject {
   let manager = DocatchTryThrowBootcampDataManager()
 
   func fetchTitle() {
+    /*
     let returnedValue = manager.getTitle()
     if let newTitle = returnedValue.title {
       self.text = newTitle
     } else if let error = returnedValue.error {
+      self.text = error.localizedDescription
+    }
+    */
+    //---------------------------------------
+    /*
+    let result = manager.getTitle2()
+    switch result {
+    case .success(let newTitle):
+      self.text = newTitle
+    case .failure(let error):
+      self.text = error.localizedDescription
+    }
+    */
+    
+    //Note: we can have multiple try statements in a do block, but we can only have one catch block. And if any one try fails,
+    //The loop will exit and the catch block will be executed.
+    //To omit this problem, we can use optional try (try?) which will not throw an error if the try fails.
+    do {
+      let newTitle = try manager.getTitle3()
+      self.text = newTitle
+    } catch let error {
       self.text = error.localizedDescription
     }
   }
