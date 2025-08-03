@@ -42,16 +42,6 @@
 			path = "Swift-Concurrency";
 			sourceTree = "<group>";
 		};
-		DF5384ED2E3C74C700EB5177 /* Swift-ConcurrencyTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Swift-ConcurrencyTests";
-			sourceTree = "<group>";
-		};
-		DF5384F72E3C74C700EB5177 /* Swift-ConcurrencyUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Swift-ConcurrencyUITests";
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,8 +75,6 @@
 				DFDE532B2E3FD6E400BE894C /* iOS_Fundamentals_Roadmap.md */,
 				DF5385A72E3CB26600EB5177 /* ios_system_design_topics.md */,
 				DF5384DF2E3C74C600EB5177 /* Swift-Concurrency */,
-				DF5384ED2E3C74C700EB5177 /* Swift-ConcurrencyTests */,
-				DF5384F72E3C74C700EB5177 /* Swift-ConcurrencyUITests */,
 				DF5384DE2E3C74C600EB5177 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -139,9 +127,6 @@
 			dependencies = (
 				DF5384EC2E3C74C700EB5177 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				DF5384ED2E3C74C700EB5177 /* Swift-ConcurrencyTests */,
-			);
 			name = "Swift-ConcurrencyTests";
 			packageProductDependencies = (
 			);
@@ -161,9 +146,6 @@
 			);
 			dependencies = (
 				DF5384F62E3C74C700EB5177 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				DF5384F72E3C74C700EB5177 /* Swift-ConcurrencyUITests */,
 			);
 			name = "Swift-ConcurrencyUITests";
 			packageProductDependencies = (
