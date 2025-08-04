@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 /*
  What we are learning here?
@@ -48,30 +49,61 @@ class DownloadImageAsyncImageLoader {
   
   //Download Image with Combine
   //Combine: A framework that provides a declarative Swift API for processing values over time.
-  func downloadWithCombine() {
+  func downloadWithCombine() -> AnyPublisher<UIImage?, Error> {
     URLSession.shared.dataTaskPublisher(for: url)
+      .map(handleResponse)
+      .mapError({$0})
+      .eraseToAnyPublisher()
+  }
+  
+  //We can even improve the above code further by using async await which is more readable and concise.
+  func downloadWithAsync() async throws -> UIImage? {
+    do {
+      let (data, response) = try await URLSession.shared.data(from: url, delegate: nil)
+      let image = handleResponse(data: data, response: response)
+      return image
+    } catch {
+      throw error
+    }
   }
 }
 
 class DownloadImageAsyncViewModel: ObservableObject {
   @Published var image: UIImage? = nil
   let loader = DownloadImageAsyncImageLoader()
+  var cancellables = Set<AnyCancellable>()
   
-  func fetchImage() {
-    loader.downloadwithEscaping { [weak self] image, error in
-      //We added the image update in main thread because UIKit updates must be done on the main thread.
-      //The operation URLSession.shared.dataTask is done on a background thread, so we need to switch back to the main thread to update the UI.
-      DispatchQueue.main.async {
-        self?.image = image
-      }
+  func fetchImage() async {
+    /*
+     loader.downloadwithEscaping { [weak self] image, error in
+     //We added the image update in main thread because UIKit updates must be done on the main thread.
+     //The operation URLSession.shared.dataTask is done on a background thread, so we need to switch back to the main thread to update the UI.
+     DispatchQueue.main.async {
+     self?.image = image
+     }
+     }
+     */
+    /*
+     loader.downloadWithCombine()
+     .receive(on: DispatchQueue.main) // Ensure UI updates are on the main thread
+     .sink { _ in
+     
+     } receiveValue: { [weak self] image in
+     self?.image = image
+     }
+     .store(in: &cancellables)
+     }
+     */
+    let image = try? await loader.downloadWithAsync()
+    await MainActor.run {
+      self.image = image
     }
   }
-}
-
-
-struct DownloadImageAsync: View {
-  @StateObject private var viewModel = DownloadImageAsyncViewModel()
   
+  
+  struct DownloadImageAsync: View {
+    @StateObject private var viewModel = DownloadImageAsyncViewModel()
+    
     var body: some View {
       ZStack {
         if let image = viewModel.image {
@@ -82,11 +114,16 @@ struct DownloadImageAsync: View {
         }
       }
       .onAppear {
-        viewModel.fetchImage()
+        //        viewModel.fetchImage()
+        //To support async function, we need to use Task block.
+        Task {
+          await viewModel.fetchImage()
+        }
       }
     }
-}
-
-#Preview {
+  }
+  
+  #Preview {
     DownloadImageAsync()
+  }
 }
