@@ -11,9 +11,25 @@ This document contains over 60 iOS-specific interview questions and answers, ide
 The responder chain is a hierarchy through which events are passed until an appropriate object handles them. It starts with the first responder and moves up through the view hierarchy to the view controller, window, and application.
 
 **2. What’s the difference between `layoutSubviews`, `setNeedsLayout`, and `layoutIfNeeded`?**  
-- `layoutSubviews`: Override to manually layout subviews.
-- `setNeedsLayout`: Marks the view as needing layout; layout is deferred.
-- `layoutIfNeeded`: Immediately forces layout if marked.
+✅ Concise Summary:
+- `layoutSubviews`: Override point to layout child views.
+- `setNeedsLayout`: Marks the view as needing layout (asynchronous).
+- `layoutIfNeeded`: Forces immediate layout if needed (synchronous).
+
+📚 Detailed Explanation (study + interview-ready):
+- **`layoutSubviews()`**  
+  A method in `UIView` you override to manually lay out child views. It’s automatically called by the system during layout passes, or manually by calling `setNeedsLayout` followed by `layoutIfNeeded`.
+
+- **`setNeedsLayout()`**  
+  Notifies the system that the layout of the view needs to be updated. It does **not** immediately trigger layout. Instead, the layout update is deferred to the next run loop cycle. Useful for batching multiple layout changes efficiently.
+
+- **`layoutIfNeeded()`**  
+  Forces an **immediate** layout pass **only if** `setNeedsLayout` was previously called. Used when you want the layout to update synchronously within the current run loop—for example, to animate layout changes.
+
+🧠 When to use:
+- Override `layoutSubviews` to customize layout.
+- Call `setNeedsLayout` to defer layout updates.
+- Use `layoutIfNeeded` when you need layout updates immediately (e.g., before an animation starts).
 
 **3. How does SwiftUI’s rendering lifecycle differ from UIKit’s?**  
 SwiftUI is declarative and automatically re-renders views based on state changes. UIKit requires explicit updates via lifecycle methods.
