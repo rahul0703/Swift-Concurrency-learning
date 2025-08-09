@@ -94,10 +94,20 @@ struct CustomButton: View {
 When a bound state changes (`@State`, `@Binding`, `@ObservedObject`, etc.).
 
 **6. What’s the role of `@State`, `@Binding`, `@ObservedObject`, and `@EnvironmentObject`?**  
-- `@State`: Local, simple value.
-- `@Binding`: Two-way binding to `@State`.
-- `@ObservedObject`: External data model.
-- `@EnvironmentObject`: Shared app-wide data.
+✅ Concise Summary:
+- `@State`: Local mutable state for a single view.
+- `@Binding`: Two-way link to a `@State` value owned by a parent.
+- `@ObservedObject`: External reference type that notifies the view on changes.
+- `@EnvironmentObject`: Shared global observable data injected into the environment.
+
+📚 Detailed Explanation (study + interview-ready):
+
+- `@State`  
+  A lightweight, view-local property wrapper that allows a view to own and mutate state. SwiftUI observes changes and re-renders the view when the state changes.  
+  **Use case:** Toggle, text field state, internal counters, etc.
+  ```swift
+  @State private var isOn = false
+
 
 **7. How do you handle view transitions in SwiftUI?**  
 With `.transition()` and `.animation()` modifiers.
