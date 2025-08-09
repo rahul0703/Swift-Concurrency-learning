@@ -94,6 +94,7 @@ struct CustomButton: View {
 When a bound state changes (`@State`, `@Binding`, `@ObservedObject`, etc.).
 
 **6. What’s the role of `@State`, `@Binding`, `@ObservedObject`, and `@EnvironmentObject`?**  
+
 ✅ Concise Summary:
 - `@State`: Local mutable state for a single view.
 - `@Binding`: Two-way link to a `@State` value owned by a parent.
@@ -104,9 +105,45 @@ When a bound state changes (`@State`, `@Binding`, `@ObservedObject`, etc.).
 
 - `@State`  
   A lightweight, view-local property wrapper that allows a view to own and mutate state. SwiftUI observes changes and re-renders the view when the state changes.  
-  **Use case:** Toggle, text field state, internal counters, etc.
+  **Use case:** Toggle, text field state, internal counters, etc.  
+  Example:  
   ```swift
   @State private var isOn = false
+  ```
+
+- `@Binding`  
+  A read-write link to a `@State` variable owned by a parent view. It allows a child view to read and mutate the parent’s state **without owning it**.  
+  **Use case:** Pass state control to subviews.  
+  Example:  
+  ```swift
+  @Binding var isOn: Bool
+  ```
+
+- `@ObservedObject`  
+  Used to observe an external reference type (class conforming to `ObservableObject`). When a `@Published` property inside it changes, the view re-renders.  
+  **Use case:** ViewModel or shared data not owned by the view.  
+  Example:  
+  ```swift
+  class MyViewModel: ObservableObject {
+      @Published var title = ""
+  }
+  ```
+
+- `@EnvironmentObject`  
+  A global, shared observable object injected into the SwiftUI environment. It must be injected from a parent using `.environmentObject()`.  
+  **Use case:** App-wide settings, authentication state.  
+  Example:  
+  ```swift
+  @EnvironmentObject var authManager: AuthManager
+  ```
+
+🧠 Notes:
+- `@State` is for simple local value types.
+- `@Binding` enables child-to-parent communication.
+- `@ObservedObject` is for external models owned outside the view.
+- `@EnvironmentObject` is for shared models accessible across the view hierarchy.
+- All of these trigger view updates when their values change.
+
 
 
 **7. How do you handle view transitions in SwiftUI?**  
