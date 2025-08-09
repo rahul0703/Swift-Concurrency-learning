@@ -34,6 +34,44 @@ The responder chain is a hierarchy through which events are passed until an appr
 **3. How does SwiftUI’s rendering lifecycle differ from UIKit’s?**  
 SwiftUI is declarative and automatically re-renders views based on state changes. UIKit requires explicit updates via lifecycle methods.
 
+❓ What are the lifecycle methods in UIKit, and when are they called?
+
+✅ Concise Summary:
+- `loadView()`: Loads the view hierarchy (only if not using storyboard/XIB).
+- `viewDidLoad()`: Called once after the view is loaded into memory.
+- `viewWillAppear(_:)`: Called every time the view is about to appear.
+- `viewDidAppear(_:)`: Called after the view appears.
+- `viewWillDisappear(_:)`: Called before the view disappears.
+- `viewDidDisappear(_:)`: Called after the view disappears.
+- `deinit`: Called when the view controller is deallocated.
+
+📚 Detailed Explanation (study + interview-ready):
+
+- `loadView()`  
+  Manually creates the view hierarchy. Only override this if you're not using storyboards or nibs. UIKit calls this when `view` is accessed but hasn't been loaded yet.
+
+- `viewDidLoad()`  
+  Called **once** after the view is loaded into memory. Use this to do additional setup like binding UI elements, initializing data, setting up observers, etc.
+
+- `viewWillAppear(_ animated: Bool)`  
+  Called **every time** the view is about to appear on screen. Ideal for refreshing UI or analytics tracking.
+
+- `viewDidAppear(_ animated: Bool)`  
+  Called right after the view appears. Use it for animations or starting tasks that require the view to be fully visible.
+
+- `viewWillDisappear(_ animated: Bool)`  
+  Called just before the view is removed from the screen. Good for stopping tasks or saving state.
+
+- `viewDidDisappear(_ animated: Bool)`  
+  Called after the view is removed from screen. Use it for cleanup or releasing resources.
+
+- `deinit`  
+  Called when the view controller is deallocated from memory. Use this to clean up observers, timers, etc.
+
+🧠 Notes:
+- `viewDidLoad()` is called **once** per lifecycle; others are called every time the view appears or disappears.
+- Always call `super` when overriding these methods.
+
 **4. How would you implement a reusable custom view in SwiftUI?**  
 ```swift
 struct CustomButton: View {
