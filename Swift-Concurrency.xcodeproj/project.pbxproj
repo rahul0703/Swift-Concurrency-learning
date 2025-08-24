@@ -37,9 +37,19 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		DF15D83E2E5B9DA200329302 /* Sample examples */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "Sample examples";
+			sourceTree = "<group>";
+		};
 		DF5384DF2E3C74C600EB5177 /* Swift-Concurrency */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = "Swift-Concurrency";
+			sourceTree = "<group>";
+		};
+		DFC82C642E54D55D001B0463 /* iOS interview playbook */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "iOS interview playbook";
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -72,6 +82,8 @@
 		DF5384D42E3C74C600EB5177 = {
 			isa = PBXGroup;
 			children = (
+				DF15D83E2E5B9DA200329302 /* Sample examples */,
+				DFC82C642E54D55D001B0463 /* iOS interview playbook */,
 				DFDE532B2E3FD6E400BE894C /* iOS_Fundamentals_Roadmap.md */,
 				DF5385A72E3CB26600EB5177 /* ios_system_design_topics.md */,
 				DF5384DF2E3C74C600EB5177 /* Swift-Concurrency */,
@@ -105,7 +117,9 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				DF15D83E2E5B9DA200329302 /* Sample examples */,
 				DF5384DF2E3C74C600EB5177 /* Swift-Concurrency */,
+				DFC82C642E54D55D001B0463 /* iOS interview playbook */,
 			);
 			name = "Swift-Concurrency";
 			packageProductDependencies = (
